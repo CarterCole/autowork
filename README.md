@@ -1,3 +1,5 @@
+![AUTOWORK](.github/banner.png)
+
 # autowork
 
 A work queue for AI agents, run from GitHub issues.
