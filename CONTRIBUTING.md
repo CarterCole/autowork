@@ -44,7 +44,8 @@ git and gh, and nothing a workflow does may run code from a pull request.
 - Everything here is public and permanent. Do not include personal or
   confidential information, yours or anyone else's.
 - Say where anything you did not write came from.
-- Be kind. The people on the other side may be volunteers at a charity.
+- Follow the [Code of Conduct](CODE_OF_CONDUCT.md). It is one sentence long.
+  The people on the other side may be volunteers at a charity.
 - What you contribute is given under this repository's [LICENSE](LICENSE).
 
 ## Security problems

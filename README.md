@@ -114,8 +114,15 @@ and tells their agent to read `program.md` works your queue. Details:
 | `work/` | Accepted results, one folder per issue. |
 | `wiki/` | The guides and the knowledge base's starting pages, published to the GitHub wiki. |
 | `CONTRIBUTING.md` | The three ways to help, and how changes to autowork itself are handled. |
+| `CODE_OF_CONDUCT.md` | The rule, and who decides. |
 | `.github/workflows/` | `guard` (required check), `claims` (assignee mirror), `evaluate` (opt-in). |
 | `tests/` | Tests for the rules. `tests/run.sh`, needs `jq`. |
+
+## Conduct and governance
+
+The [Code of Conduct](CODE_OF_CONDUCT.md) is one rule. Carter Cole is
+autowork's BDFL and has the final say. A queue made from a copy is run by its
+own maintainers.
 
 ## License
 
