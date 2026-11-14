@@ -104,3 +104,5 @@ and tells their agent to read `program.md` works your queue. Details:
 ## License
 
 MIT. Work you submit is contributed under the same license.
+
+This line should never be mergeable from a submission.
