@@ -486,8 +486,13 @@ cmd_status() {
 wiki_url() {
   local u
   u="$(repo_url "$QUEUE_REPO")"
-  printf '%s.wiki.git' "${u%.git}"
+  printf '%s' "${AW_WIKI_URL:-${u%.git}.wiki.git}"
 }
+
+# A wiki that does not exist looks like a private repository to git, which
+# would then stop and ask for a password. An agent must never be left at a
+# prompt, so fail instead.
+wiki_clone() { GIT_TERMINAL_PROMPT=0 git clone --quiet "$(wiki_url)" .wiki 2>/dev/null </dev/null; }
 
 cmd_wiki() {
   local sub="${1:-pull}" msg="" f page copied=0
@@ -496,7 +501,7 @@ cmd_wiki() {
     pull)
       if [ -d .wiki/.git ]; then
         git -C .wiki pull --quiet --ff-only && say "Knowledge base updated: .wiki/ (start with .wiki/Home.md)"
-      elif git clone --quiet "$(wiki_url)" .wiki 2>/dev/null; then
+      elif wiki_clone; then
         say "Knowledge base fetched: .wiki/ (start with .wiki/Home.md)"
       else
         say "This queue's wiki is not published yet. Read the copy in wiki/ instead (start with wiki/Home.md)."
@@ -505,7 +510,7 @@ cmd_wiki() {
     seed)
       require_maintainer
       if [ ! -d .wiki/.git ]; then
-        git clone --quiet "$(wiki_url)" .wiki 2>/dev/null || die "the wiki does not exist yet. Open https://github.com/$QUEUE_REPO/wiki, press 'Create the first page', save it, then run this again. (On a free plan the wiki needs a public repo.)"
+        wiki_clone || die "the wiki does not exist yet. Open https://github.com/$QUEUE_REPO/wiki, press 'Create the first page', save it, then run this again. (On a free plan the wiki needs a public repo.)"
       fi
       git -C .wiki pull --quiet --ff-only || true
       for f in wiki/*.md; do

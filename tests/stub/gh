@@ -3,6 +3,9 @@
 #
 #   gh api graphql ... --jq PROGRAM   runs PROGRAM over $AW_FIXTURE with real jq
 #   gh api user --jq .login           prints $STUB_LOGIN
+#   gh repo view ... viewerPermission prints $STUB_PERMISSION
+#   gh repo view ... defaultBranchRef prints main
+#   gh config get git_protocol        prints https
 #
 # Anything else is appended to $STUB_LOG and succeeds, so tests can assert on
 # what bin/aw tried to do without touching GitHub.
@@ -15,11 +18,17 @@ for a in "$@"; do
   prev="$a"
 done
 
-if [ "${1:-}" = "api" ] && [ "${2:-}" = "graphql" ]; then
-  exec jq -r "$prog" "$AW_FIXTURE"
-fi
-if [ "${1:-}" = "api" ] && [ "${2:-}" = "user" ]; then
-  printf '%s\n' "${STUB_LOGIN:-tester}"
-  exit 0
-fi
+case "${1:-} ${2:-}" in
+  "api graphql")
+    exec jq -r "$prog" "$AW_FIXTURE" ;;
+  "api user")
+    printf '%s\n' "${STUB_LOGIN:-tester}"; exit 0 ;;
+  "config get")
+    printf 'https\n'; exit 0 ;;
+  "repo view")
+    case "$*" in
+      *viewerPermission*) printf '%s\n' "${STUB_PERMISSION:-READ}"; exit 0 ;;
+      *defaultBranchRef*) printf 'main\n'; exit 0 ;;
+    esac ;;
+esac
 printf '%s\n' "$*" >> "${STUB_LOG:-/dev/null}"
