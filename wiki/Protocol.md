@@ -75,7 +75,9 @@ A submission is a pull request against the default branch that:
 - contains only regular files (no symlinks, no submodules);
 - changes no more than `MAX_FILES` files;
 - is for an item that is currently a work item;
-- is from an author whose claim on that item is `submitted`.
+- is from an author whose claim on that item is `submitted`;
+- is that author's first open pull request for the item. One submission per
+  claim: a second one fails, and the evaluator sees it listed as an orphan.
 
 The **guard** checks exactly this list. A pull request from a maintainer on
 any other branch name is a change to the queue itself and is not checked. A

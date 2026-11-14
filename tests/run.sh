@@ -149,6 +149,8 @@ fixture boss "$OK" "$BODY2" '[]' "[[11,\"OPEN\",\"aw/7-mallory\",\"$T_1H\",\"mal
 expect "a PR without a claim holds nothing" mallory me=none holders= free=2 orphans=11
 fixture boss "$OK" $'### Copies\n\n1\n' "[[\"alice\",\"/claim\",\"$T_3H\"],[\"bob\",\"/claim\",\"$T_2H\"]]" "[[12,\"OPEN\",\"aw/7-bob\",\"$T_1H\",\"bob\"]]"
 expect "submitting first does not beat an earlier live claim" bob me=overflow holders=alice orphans=12
+fixture boss "$OK" "$BODY2" "[[\"alice\",\"/claim\",\"$T_3H\"]]" "[[14,\"OPEN\",\"aw/7-alice-again\",\"$T_1H\",\"alice\"],[11,\"OPEN\",\"aw/7-alice\",\"$T_2H\",\"alice\"]]"
+expect "a second pull request from one claimer does not count" alice me=submitted my_pr=11 prs=11 orphans=14 free=1
 
 echo "commands"
 fixture boss "$OK" "$BODY2" "[[\"alice\",\"/claim\",\"$T_1H\"]]" '[]'

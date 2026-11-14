@@ -84,7 +84,9 @@ def item($prs):
   | [$claimed[] | . as $c
      | [$iprs[] | select((.who | lc) == ($c.who | lc))] as $mine
      | {who: $c.who, t: $c.t, expires: ($c.t + TTL),
-        pr: ([$mine[] | select(.state == "OPEN") | .number] | .[0]),
+        # One submission per claim: the first pull request opened is the one
+        # that counts. Any later one is an orphan.
+        pr: ([$mine[] | select(.state == "OPEN")] | sort_by(.t, .number) | .[0].number),
         # An open PR keeps a claim alive only if it was opened before the
         # claim ran out. Otherwise a lapsed claimer could open a PR days
         # later and push out whoever took the slot in the meantime.
@@ -100,9 +102,11 @@ def item($prs):
   | $active[$copies:] as $overflow
   | [$holders[] | select(.status == "submitted")] as $submitted
   | [$holders[] | select(.status == "working")] as $working
-  | [$holders[] | .who | lc] as $hl
+  # Orphans: open pull requests that are not a holder's one submission. That
+  # covers people with no slot and second pull requests from people with one.
+  | [$holders[] | .pr | select(. != null)] as $counted
   | [$iprs[] | select(.state == "OPEN")
-     | select((.who | lc) as $w | ($hl | index($w)) == null)] as $orphans
+     | select(.number as $x | ($counted | index($x)) == null)] as $orphans
   | (if ($submitted | length) == 0 then "no"
      elif ($submitted | length) >= $copies then "yes"
      elif ($working | length) == 0 then "partial"

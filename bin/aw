@@ -822,7 +822,13 @@ EOF
   else
     gpass "#$n is an approved work item written by a maintainer"
     case "$(kv "$s" me)" in
-      submitted) gpass "@$author holds a slot on #$n" ;;
+      submitted)
+        if [ "$(kv "$s" my_pr)" = "$pr" ]; then
+          gpass "@$author holds a slot on #$n"
+        else
+          gflunk "@$author already has PR #$(kv "$s" my_pr) open for #$n. One submission per claim: update that one instead."
+        fi
+        ;;
       none)      gflunk "@$author never claimed #$n (run: bin/aw take $n)" ;;
       overflow)  gflunk "@$author claimed #$n after every slot was taken" ;;
       late)      gflunk "@$author's claim on #$n expired before this pull request was opened (run: bin/aw take $n to claim again)" ;;
