@@ -446,7 +446,9 @@ cmd_submit() {
   esac
   git push --quiet -u "$remote" "$branch"
 
-  existing="$(gh pr list --repo "$QUEUE_REPO" --head "$branch" --author "$ME" --state open --json url --jq '.[0].url // empty')"
+  # gh's --head filter matches by prefix, so compare the branch name exactly.
+  existing="$(gh pr list --repo "$QUEUE_REPO" --head "$branch" --author "$ME" --state open --json url,headRefName \
+    --jq "[.[] | select(.headRefName == \"$branch\")] | .[0].url // empty")"
   if [ -n "$existing" ]; then
     say "Updated your open pull request: $existing"
     return 0
@@ -780,11 +782,11 @@ cmd_verdict() {
 # ------------------------------------------------------------ automation ----
 
 cmd_guard() {
-  local pr="${1:-}" meta head author state changed sha n s bad sub odd problems=0
+  local pr="${1:-}" meta head author state changed sha base trunk n s bad sub odd problems=0
   is_int "$pr" || die "usage: aw guard <pr-number>"
-  meta="$(gh api "repos/$QUEUE_REPO/pulls/$pr" --jq '[.head.ref, .user.login, .state, (.changed_files | tostring), .head.sha] | @tsv')" \
+  meta="$(gh api "repos/$QUEUE_REPO/pulls/$pr" --jq '[.head.ref, .user.login, .state, (.changed_files | tostring), .head.sha, .base.ref, .base.repo.default_branch] | @tsv')" \
     || die "guard: cannot read PR #$pr"
-  IFS=$'\t' read -r head author state changed sha <<EOF
+  IFS=$'\t' read -r head author state changed sha base trunk <<EOF
 $meta
 EOF
   n=""
@@ -802,6 +804,7 @@ EOF
   gpass()  { say "  ok    $*"; }
 
   if [ "$state" = "open" ]; then gpass "pull request is open"; else gflunk "pull request is $state"; fi
+  if [ "$base" = "$trunk" ]; then gpass "targets $trunk"; else gflunk "targets $base, but submissions go to $trunk"; fi
   if [ "$changed" -le "$MAX_FILES" ]; then gpass "$changed files changed (limit $MAX_FILES)"; else gflunk "$changed files changed, limit is $MAX_FILES"; fi
 
   bad="$(gh api "repos/$QUEUE_REPO/pulls/$pr/files" --paginate \

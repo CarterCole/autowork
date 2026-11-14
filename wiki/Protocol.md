@@ -69,7 +69,7 @@ comments are not counted. A maintainer re-files it.
 
 A submission is a pull request against the default branch that:
 
-- comes from a branch named `aw/<issue>-<login>`;
+- targets the default branch and comes from a branch named `aw/<issue>-<login>`;
 - changes only files under `work/<issue>/`;
 - includes `work/<issue>/SUBMISSION.md`;
 - contains only regular files (no symlinks, no submodules);
