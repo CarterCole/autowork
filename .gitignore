@@ -1,0 +1,8 @@
+# Local clone of the queue's wiki, fetched by `bin/aw wiki`
+.wiki/
+
+# Submissions copied out for comparison by `bin/aw review`
+.eval/
+
+*.aw-tmp
+.DS_Store

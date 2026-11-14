@@ -1,0 +1,52 @@
+# claims: show who holds each work item's slots.
+#
+# Claims are comments (`/claim`, `/release`). The rules for who actually holds
+# a slot are in lib/state.jq and every client computes them the same way, so
+# nothing depends on this workflow. It only copies the answer onto the issue
+# for people to see: slot holders become assignees, and a full item gets the
+# `full` label.
+#
+# It reads comments as data and never runs anything from them or from a pull
+# request.
+name: claims
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+  pull_request_target:
+    types: [opened, closed, reopened]
+  schedule:
+    - cron: "23 */6 * * *"   # sweep for lapsed claims
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+concurrency:
+  group: claims
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    # A comment on a pull request is not a claim.
+    if: ${{ github.event_name != 'issue_comment' || !github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - name: Copy slot holders to assignees
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AW_REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          if [ "$EVENT" = "issue_comment" ] && [ -n "$ISSUE" ]; then
+            bin/aw mirror "$ISSUE"
+          else
+            bin/aw mirror --all
+          fi

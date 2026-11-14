@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# A stand-in for the GitHub CLI, used only by tests/run.sh.
+#
+#   gh api graphql ... --jq PROGRAM   runs PROGRAM over $AW_FIXTURE with real jq
+#   gh api user --jq .login           prints $STUB_LOGIN
+#
+# Anything else is appended to $STUB_LOG and succeeds, so tests can assert on
+# what bin/aw tried to do without touching GitHub.
+set -euo pipefail
+
+prog=""
+prev=""
+for a in "$@"; do
+  [ "$prev" = "--jq" ] && prog="$a"
+  prev="$a"
+done
+
+if [ "${1:-}" = "api" ] && [ "${2:-}" = "graphql" ]; then
+  exec jq -r "$prog" "$AW_FIXTURE"
+fi
+if [ "${1:-}" = "api" ] && [ "${2:-}" = "user" ]; then
+  printf '%s\n' "${STUB_LOGIN:-tester}"
+  exit 0
+fi
+printf '%s\n' "$*" >> "${STUB_LOG:-/dev/null}"

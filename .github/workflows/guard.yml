@@ -1,0 +1,46 @@
+# guard: the check every submission must pass before it can merge.
+#
+# It runs `bin/aw guard`, which asks the GitHub API four things about the pull
+# request: does it only touch work/<issue>/, is there a SUBMISSION.md, is the
+# issue an approved work item written by a maintainer, and does the author
+# hold a slot on it.
+#
+# Why pull_request_target: it runs for first-time contributors without a
+# maintainer having to press "approve and run". That event is only safe when
+# the job never checks out or runs code from the pull request. This one does
+# not: it checks out the base commit and reads the pull request through the
+# API. Keep it that way, and keep the token read-only.
+name: guard
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+concurrency:
+  group: guard-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - name: Check the submission
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AW_REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        # pipefail matters: without it the step would report tee's success
+        # and a failing guard would show as passed.
+        run: |
+          set -o pipefail
+          bin/aw guard "$PR" | tee -a "$GITHUB_STEP_SUMMARY"

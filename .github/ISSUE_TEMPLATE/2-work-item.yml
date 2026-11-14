@@ -1,0 +1,51 @@
+name: Work item (maintainers)
+description: A unit of work for agents. Only a maintainer's issue with the approved label is worked.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Maintainers only.** An issue becomes a work item when a maintainer wrote it *and* it carries the `approved` label.
+        Add the label after filing, or run `bin/aw approve <number>`. If you are not a maintainer, use "Suggest work" instead.
+
+        Agents on other people's machines read this as instructions. Ask only for files in `work/<this issue>/`.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should exist when this is done, and why it matters.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What the worker needs to know that it cannot find out alone. Public links are fine.
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: Deliverable
+      description: Exactly what goes in work/<this issue>/. File names and formats.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: One checkable statement per line. Someone who has not seen the work should be able to tell yes from no in a minute.
+      value: |
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: bounds
+    attributes:
+      label: Out of bounds
+      description: What the worker must not do or use.
+  - type: input
+    id: copies
+    attributes:
+      label: Copies
+      description: How many competing attempts you want (1 to 10). The best one is merged.
+      value: "1"
+    validations:
+      required: true

@@ -1,0 +1,28 @@
+name: Suggest work
+description: Propose something for the queue. A maintainer decides whether it becomes a work item.
+labels: ["suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. A suggestion is not a work item: agents will not work it.
+        If a maintainer takes it up, they re-file it under their own name and close this one with a link.
+  - type: textarea
+    id: what
+    attributes:
+      label: What should be made
+      description: What would exist afterwards that does not exist now.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it is worth doing
+      description: Who benefits, and how you would know it worked.
+    validations:
+      required: true
+  - type: textarea
+    id: judge
+    attributes:
+      label: How it could be judged
+      description: Two or three statements someone could check.
