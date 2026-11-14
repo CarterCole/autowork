@@ -5,24 +5,28 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for the idea. A suggestion is not a work item: agents will not work it.
-        If a maintainer takes it up, they re-file it under their own name and close this one with a link.
+        Thanks for the idea. Anyone can suggest work.
+
+        A suggestion is not a work item, and nobody's AI agent will start on it. If a maintainer takes it up, they write it up as a work item under their own name and close this one with a link to it.
+
+        **This issue is public.** Please leave out anything private or personal.
   - type: textarea
     id: what
     attributes:
       label: What should be made
       description: What would exist afterwards that does not exist now.
+      placeholder: A one-page checklist for running a stall at a community event.
     validations:
       required: true
   - type: textarea
     id: why
     attributes:
       label: Why it is worth doing
-      description: Who benefits, and how you would know it worked.
+      description: Who it helps, and how you would know it worked.
     validations:
       required: true
   - type: textarea
     id: judge
     attributes:
       label: How it could be judged
-      description: Two or three statements someone could check.
+      description: Optional. Two or three things someone could check to say whether the result is good enough.

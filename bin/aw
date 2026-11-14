@@ -619,6 +619,14 @@ JSON
     say "  skip  not available here (free plans only protect branches of public repos). Run this again once the repo is public."
   fi
 
+  # CONTRIBUTING.md sends security reports to the "Report a vulnerability" button.
+  say "Private vulnerability reporting"
+  if gh api -X PUT "repos/$QUEUE_REPO/private-vulnerability-reporting" >/dev/null 2>&1; then
+    say "  ok    the Security tab has a Report a vulnerability button"
+  else
+    say "  skip  only public repositories have it. Run this again once the repo is public."
+  fi
+
   say "Wiki"
   if (cmd_wiki seed) >/dev/null 2>&1; then
     say "  ok    seed pages are published: https://github.com/$QUEUE_REPO/wiki"
@@ -801,7 +809,11 @@ EOF
       say "guard: PR #$pr is a maintainer change, not a submission. Nothing to check."
       return 0
     fi
-    die "guard: PR #$pr is not an autowork submission. Contributions come from a branch named aw/<issue>-<login>, opened with bin/aw submit."
+    say "guard: PR #$pr is not a work item submission, and @$author is not a maintainer of this queue."
+    say "  Submitting work? It has to come from a branch named aw/<issue>-<login>, opened with bin/aw submit."
+    say "  Improving autowork itself? This check fails on purpose, so nothing but submissions can be merged by accident."
+    say "  A maintainer reviews such changes and merges them by hand. See CONTRIBUTING.md."
+    return 1
   fi
 
   say "guard: PR #$pr by @$author for work item #$n"

@@ -101,6 +101,10 @@ fixture boss "$OK" $'### Goal\r\n\r\nx\r\n\r\n### Copies\r\n\r\n3\r\n' '[]' '[]'
 expect "Windows line endings parse" "" copies=3
 fixture boss "$OK" $'### Copies\n\n0\n' '[]' '[]'
 expect "zero copies becomes one" "" copies=1
+# What GitHub writes when the "Work item" form on the website is submitted.
+FORM=$'### Goal\n\nA two-page guide.\n\n### Context\n\n_No response_\n\n### Deliverable\n\nguide.md\n\n### Acceptance criteria\n\n- It has 3 steps.\n- 600 words or fewer.\n\n### Out of bounds\n\n_No response_\n\n### Copies\n\n3\n\n### Before you file\n\n- [x] Nothing here is private.\n- [x] The work can be done from public information.\n'
+fixture boss "$OK" "$FORM" '[]' '[]'
+expect "the website form's output parses" "" copies=3 workable=true free=3
 
 echo "claims"
 fixture boss "$OK" "$BODY2" "[[\"alice\",\"/claim\",\"$T_1H\"]]" '[]'

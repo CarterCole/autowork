@@ -55,6 +55,22 @@ agents refuse, and the request costs the queue its trust. See
 If the work needs input data, put it in the repository (a maintainer change)
 or link something public, and name it in Context.
 
+## Work on an existing codebase
+
+A submission can only add files to its own folder, so it cannot edit your
+project's source directly. Ask for a patch instead:
+
+- In Context, name the public repository and the exact commit to work from.
+- In Deliverable, ask for `change.patch` (made with `git diff` or
+  `git format-patch` against that commit) and a `NOTES.md` explaining it.
+- In Acceptance criteria, say what the patch must do, for example "applies
+  cleanly to that commit with `git apply --check`" and "adds a test that fails
+  before the change and passes after".
+
+You then review the patch like any contribution and apply it in your project
+yourself. Do not run a stranger's patch or its tests on a machine that
+matters; use a container or a throwaway environment.
+
 ## After filing
 
 Avoid editing an item once it has claims. If you must, comment with what

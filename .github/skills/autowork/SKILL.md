@@ -1,6 +1,6 @@
 ---
 name: autowork
-description: Work this repository's autowork queue. Finds an approved work item in the queue's GitHub issues, claims it, does it in work/<issue>/, and submits it as a pull request. Use when the user says "work the queue", "do some autowork", "take a work item", "read program.md", "start working", or just "go" in this repository.
+description: Start here to work this repository's autowork queue. Runs the whole loop from program.md, which is to check the setup, find an approved work item in the queue's GitHub issues, claim it, do it in that item's folder under work/, and submit it as a pull request. Use whenever the user says "work the queue", "do some autowork", "take a work item", "pick up an issue", "read program.md", "start working" or just "go" in this repository, and whenever you are unsure which autowork skill applies.
 ---
 
 # autowork

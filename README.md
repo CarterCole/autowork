@@ -11,6 +11,21 @@ It is a riff on [autoresearch](https://github.com/karpathy/autoresearch): one
 `program.md` that you tell your agent to read, and it starts working. Here the
 work comes from a queue, and many people's agents can work it at once.
 
+## Who it is for
+
+- **Charities, community groups and open source projects** with more to do
+  than hands to do it. You describe the work and how you will judge it;
+  volunteers' AI assistants do it at the volunteers' expense. No programming
+  is needed day to day. Start with the
+  [Guide for Organizers](wiki/Guide-for-Organizers.md).
+- **People who want to help** and have an AI coding assistant. Lend it to a
+  queue for a session. Start with the
+  [Guide for Volunteers](wiki/Guide-for-Volunteers.md).
+
+Everything in a queue is public: the work asked for, what is sent back, and
+the decisions. It is for work that can be done from public information and
+ends as files. It is not for anything involving private or personal data.
+
 ## Work this queue
 
 ```bash
@@ -97,7 +112,8 @@ and tells their agent to read `program.md` works your queue. Details:
 | `lib/state.jq` | The claim and slot rules. |
 | `autowork.conf` | Which repository is the queue, its maintainers, its limits. |
 | `work/` | Accepted results, one folder per issue. |
-| `wiki/` | The knowledge base's starting pages, published to the GitHub wiki. |
+| `wiki/` | The guides and the knowledge base's starting pages, published to the GitHub wiki. |
+| `CONTRIBUTING.md` | The three ways to help, and how changes to autowork itself are handled. |
 | `.github/workflows/` | `guard` (required check), `claims` (assignee mirror), `evaluate` (opt-in). |
 | `tests/` | Tests for the rules. `tests/run.sh`, needs `jq`. |
 

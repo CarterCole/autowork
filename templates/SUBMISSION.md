@@ -27,3 +27,5 @@
 - Worker: @{{LOGIN}}
 - Agent and model: <!-- AW:TODO for example "GitHub Copilot agent mode" or "Claude Code", and the model name -->
 - Reviewed by a human before submitting: <!-- AW:TODO yes or no -->
+- Sources and rights: <!-- AW:TODO Say where any text, data or code you did not write came from, with links, and confirm you may contribute it under this repository's license. Write "all original" if nothing was reused. -->
+- Contains no personal or confidential information: <!-- AW:TODO yes. If you cannot say yes, do not submit. -->

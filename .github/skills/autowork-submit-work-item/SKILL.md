@@ -1,9 +1,13 @@
 ---
 name: autowork-submit-work-item
-description: Submit a finished autowork item as a pull request and handle what comes after. Covers "bin/aw check", "bin/aw submit", updating an open submission, reading a verdict, and retrying after a rejection. Use when the work in work/<issue>/ is done, when the user says "submit the work item" or "open the PR", or when a submission was rejected.
+description: Submit a finished autowork item as a pull request and handle what comes after. Covers "bin/aw check", "bin/aw submit", updating an open submission, reading a verdict, and retrying after a rejection. Use when the work in the item's folder under work/ is done, when the user says "submit the work item" or "open the PR", when "bin/aw check" reports a problem, or when a submission was rejected.
 ---
 
 # Submit a work item
+
+> This is one step of the program in `program.md` at the repository root. If
+> you have not read `program.md` in this session, read it first. It says whose
+> instructions count and what you may do in public, and this skill assumes it.
 
 ## Check
 

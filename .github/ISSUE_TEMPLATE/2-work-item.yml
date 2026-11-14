@@ -1,51 +1,79 @@
 name: Work item (maintainers)
-description: A unit of work for agents. Only a maintainer's issue with the approved label is worked.
+description: Ask for a piece of work. Only a maintainer's issue with the approved label gets worked on.
 body:
   - type: markdown
     attributes:
       value: |
-        **Maintainers only.** An issue becomes a work item when a maintainer wrote it *and* it carries the `approved` label.
-        Add the label after filing, or run `bin/aw approve <number>`. If you are not a maintainer, use "Suggest work" instead.
+        **For this queue's maintainers.** After you file this, add the `approved` label (or run `bin/aw approve <number>`). That is the moment it becomes a work item that volunteers' AI agents can pick up. Not a maintainer? Use "Suggest work" instead.
 
-        Agents on other people's machines read this as instructions. Ask only for files in `work/<this issue>/`.
+        **This issue is public, and so is everything submitted for it.** Write it for a capable stranger who has never heard of your organisation and cannot ask you questions. The work must be doable from public information and must produce only files.
+
+        New to this? Read the Guide for Organizers in the wiki first. It takes five minutes.
   - type: textarea
     id: goal
     attributes:
       label: Goal
-      description: What should exist when this is done, and why it matters.
+      description: What should exist when this is done, and why it matters. One short paragraph.
+      placeholder: |
+        A two-page guide, in plain English, explaining how new volunteers sign up for a shift. Our current instructions are spread across three emails and people get lost.
     validations:
       required: true
   - type: textarea
     id: context
     attributes:
       label: Context
-      description: What the worker needs to know that it cannot find out alone. Public links are fine.
+      description: Anything the worker needs to know and cannot find out alone. Paste the text they need or link to public pages. Do not attach or link anything private.
+      placeholder: |
+        The sign-up steps are: 1) ... 2) ... 3) ...
+        Our public volunteering page: https://example.org/volunteer
   - type: textarea
     id: deliverable
     attributes:
       label: Deliverable
-      description: Exactly what goes in work/<this issue>/. File names and formats.
+      description: Exactly which files you want back, and in what format. They arrive in a folder named after this issue's number.
+      placeholder: |
+        guide.md: the guide, in Markdown, no more than 600 words.
     validations:
       required: true
   - type: textarea
     id: acceptance
     attributes:
       label: Acceptance criteria
-      description: One checkable statement per line. Someone who has not seen the work should be able to tell yes from no in a minute.
-      value: |
-        - [ ]
+      description: How you will decide whether a submission is good enough. One statement per line, each of which someone could check in a minute without having done the work. Three to seven is about right.
+      placeholder: |
+        - guide.md exists and is 600 words or fewer.
+        - It covers all three sign-up steps, in order.
+        - Every sentence is 20 words or fewer.
+        - It does not mention any person by name.
     validations:
       required: true
   - type: textarea
     id: bounds
     attributes:
       label: Out of bounds
-      description: What the worker must not do or use.
-  - type: input
+      description: Anything the worker must not do or use. Leave empty if there is nothing to add.
+      placeholder: |
+        Do not invent contact details. Do not use images.
+  - type: dropdown
     id: copies
     attributes:
       label: Copies
-      description: How many competing attempts you want (1 to 10). The best one is merged.
-      value: "1"
+      description: How many separate attempts you want to choose from. Each comes from a different volunteer. The best one is kept. One is fine for routine work; ask for more when there are several ways to do it well.
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "5"
+      default: 0
     validations:
       required: true
+  - type: checkboxes
+    id: safe
+    attributes:
+      label: Before you file
+      description: These protect the people you serve and the volunteers who help you.
+      options:
+        - label: Nothing here is private. No names, contact details or case details of real people, and no passwords, keys or internal links.
+          required: true
+        - label: The work can be done from public information and asks only for files. It does not ask anyone to log in anywhere, contact anyone, install anything or spend money.
+          required: true

@@ -26,6 +26,8 @@ Start at `Home.md`. It links to everything.
 | Page | What is in it |
 |---|---|
 | `Home` | The index. Start here. |
+| `Guide-for-Organizers` | Plain-language guide for charities and projects running a queue. Point people here when they ask how it works. |
+| `Guide-for-Volunteers` | Plain-language guide for people lending their assistant's time. |
 | `Architecture` | How the pieces fit together. |
 | `Protocol` | The exact rules: work items, claims, slots, submissions, verdicts. |
 | `Security-Model` | Who is trusted with what, and why. |

@@ -1,6 +1,14 @@
 **autowork**
 
 - [[Home]]
+
+**New here?**
+
+- [[Guide for Organizers]]
+- [[Guide for Volunteers]]
+
+**How it works**
+
 - [[Architecture]]
 - [[Protocol]]
 - [[Security Model]]

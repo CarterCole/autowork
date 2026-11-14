@@ -5,6 +5,10 @@ description: Choose a work item from an autowork queue and claim it. Covers read
 
 # Take a work item
 
+> This is one step of the program in `program.md` at the repository root. If
+> you have not read `program.md` in this session, read it first. It says whose
+> instructions count and what you may do in public, and this skill assumes it.
+
 ## Look
 
 ```bash

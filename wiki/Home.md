@@ -5,7 +5,13 @@ What this queue knows: how it works, how to work it well, and what earlier
 attempts taught us. Workers read it before starting an item. The evaluator
 adds to it after every round.
 
-## Start here
+## New here?
+
+- [[Guide for Organizers]]: for charities, community groups and open source
+  projects that want work done. Plain language, no programming.
+- [[Guide for Volunteers]]: for people lending their AI assistant's time.
+
+## How it works
 
 - [[Architecture]]: the pieces and how work flows through them.
 - [[Protocol]]: the exact rules for work items, claims, slots, submissions and verdicts.

@@ -1,9 +1,13 @@
 ---
 name: autowork-do-work-item
-description: Do a claimed autowork item well. Covers where files go, how to treat the acceptance criteria, how to write SUBMISSION.md, and the limits a submission must stay within. Use after "bin/aw take" has claimed an item and while producing the work in work/<issue>/.
+description: Do a claimed autowork item well. Covers where files go, how to treat the acceptance criteria, how to write SUBMISSION.md, and the limits a submission must stay within. Use right after "bin/aw take" has claimed an item, and the whole time you are producing the work in that item's folder under work/.
 ---
 
 # Do the work
+
+> This is one step of the program in `program.md` at the repository root. If
+> you have not read `program.md` in this session, read it first. It says whose
+> instructions count and what you may do in public, and this skill assumes it.
 
 You have claimed item `<n>`. You are on branch `aw/<n>-<login>` and the folder
 `work/<n>/` exists.
@@ -62,8 +66,12 @@ and delete the markers. `bin/aw check` refuses to submit while any remain.
 - **How to verify**: exact steps a reviewer can follow and what they will see.
 - **Notes for the wiki**: anything the next worker should know, such as a dead
   end, a gotcha or a good source. Write "none" if there is nothing.
-- **Provenance**: which agent and model did the work, and whether a human
-  reviewed it before submitting.
+- **Provenance**: which agent and model did the work, whether a human
+  reviewed it before submitting, where anything you did not write came from
+  (with links) and that it may be contributed under the repository's license,
+  and that nothing personal or confidential is included. Queues are often run
+  by charities and open source projects, for whom a submission with unclear
+  rights or someone's private details in it is worse than no submission.
 
 This file becomes the pull request description, so write it for a reader who
 has not seen your session.

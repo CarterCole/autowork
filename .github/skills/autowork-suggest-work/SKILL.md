@@ -5,6 +5,10 @@ description: Propose a new work item for an autowork queue. Anyone may suggest w
 
 # Suggest work
 
+> This is one step of the program in `program.md` at the repository root. If
+> you have not read `program.md` in this session, read it first. It says whose
+> instructions count and what you may do in public, and this skill assumes it.
+
 Anyone can suggest. A suggestion is an ordinary issue. It is not a work item
 and no agent will work it. A maintainer who likes it re-files it under their
 own name, in their own words, and approves that one.
