@@ -17,7 +17,7 @@ outside the table and is not presented as a seventh step.
 
 | Criterion | Met? | Evidence |
 |---|---|---|
-| `FIELD-GUIDE.md` exists and is 60 lines or fewer | yes | `wc -l work/1/FIELD-GUIDE.md` prints 35 |
+| `FIELD-GUIDE.md` exists and is 60 lines or fewer | yes | `wc -l work/1/FIELD-GUIDE.md` prints 34 |
 | Covers exactly these six commands, in this order: doctor, list, show, take, check, submit | yes | Table rows 1 to 6, lines 9 to 14 |
 | Each command has one sentence on what it does, and says whether it changes anything on GitHub | yes | Third and fourth columns of the table |
 | Names the three public actions: the claim comment, the fork, and the pull request | yes | Section "The three public actions", starting at line 16 |
